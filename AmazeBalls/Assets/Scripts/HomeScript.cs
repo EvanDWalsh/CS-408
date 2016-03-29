@@ -10,11 +10,6 @@ using System.Collections;
 
 public class HomeScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
 	public void playClicked() {
 		SceneManager.LoadScene("LevelsScene");
 	}

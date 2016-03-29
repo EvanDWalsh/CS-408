@@ -13,18 +13,20 @@ public class LevelSelectionScript : MonoBehaviour {
 	public static int levelsUnlocked = 0;
 
 	public static void unlockLevel(int level) {
+		levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 0); // Get LevelsUnlocked
 		level++; // 0 indexed to 1 indexed
-		if(levelsUnlocked < level) {
+
+		//if(levelsUnlocked < level) {
 			levelsUnlocked = level;
 			PlayerPrefs.SetInt("levelsUnlocked",levelsUnlocked);
 			PlayerPrefs.Save(); // Save LevelsUnlocked
-		}
+		//}
 	}
 
 	public static void resetUnlocked() {
 		levelsUnlocked = 0;
-		PlayerPrefs.SetInt("levelsUnlocked",levelsUnlocked);
-		PlayerPrefs.Save(); // Save LevelsUnlocked
+		//PlayerPrefs.SetInt("levelsUnlocked",levelsUnlocked);
+		//PlayerPrefs.Save(); // Save LevelsUnlocked
 	}
 
 	public int numLevels = 2;
@@ -41,7 +43,7 @@ public class LevelSelectionScript : MonoBehaviour {
 		for(int level=1; level<=numLevelsToDisplay; level++) {
 			GameObject newLevel = Instantiate (LevelPrefab);
 			newLevel.transform.SetParent(GridOfLevels.transform);
-			newLevel.GetComponentsInChildren<Text> ()[0].text = "Level " + level;
+			newLevel.GetComponentsInChildren<Text> ()[0].text = "Level " + (level+1);
 			newLevel.name = "Level" + level;
 			int localLevel = level;
 			newLevel.GetComponent<Button>().onClick.AddListener (delegate { // Add On Click Event
@@ -51,7 +53,7 @@ public class LevelSelectionScript : MonoBehaviour {
 	}
 	
 	public void backClicked() {
-		SceneManager.LoadScene("HomeScene");
+		SceneManager.LoadScene("LoginScene");
 	}
 
 	public void levelClicked(int level) {

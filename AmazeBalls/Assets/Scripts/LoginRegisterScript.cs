@@ -11,16 +11,11 @@ using System.Collections;
 
 public class LoginRegisterScript : MonoBehaviour {
 
-	private string username;
+	public static string username = "NotSet";
 	private string password;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
 	public void setUsername(string user) {
-		this.username = user;
+		username = user;
 	}
 
 	public void setPassword(string pass) {
@@ -29,6 +24,7 @@ public class LoginRegisterScript : MonoBehaviour {
 	
 	public void loginClicked() {
 		// TODO: Login Validation/Check
+		if(username=="NotSet" || username=="") { return; }
 
 		Debug.Log("Login Clicked: "+username+", "+password);
 		SceneManager.LoadScene("HomeScene");
@@ -36,6 +32,7 @@ public class LoginRegisterScript : MonoBehaviour {
 
 	public void registerClicked() {
 		// TODO: Register Submission/Validation
+		if(username=="NotSet" || username=="") { return; }
 
 		Debug.Log("Register Clicked: "+username+", "+password);
 		SceneManager.LoadScene("HomeScene");

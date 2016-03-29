@@ -20,6 +20,7 @@ public class PlayerShootScript : MonoBehaviour {
 			// Freeze Player
 			col.gameObject.GetComponent<PlayerController>().movementEnabled = false;
 			col.gameObject.GetComponent<PlayerController>().playerShootEnable();
+			col.gameObject.GetComponent<PlayerController>().currentRotation = 0.02f;
 
 			// Place at center of self
 			col.gameObject.transform.position = gameObject.transform.position;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HSController : MonoBehaviour
 {
 
-    public string Md5Sum(string strToEncrypt)
+    public static string Md5Sum(string strToEncrypt)
     {
         System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
         byte[] bytes = ue.GetBytes(strToEncrypt);
@@ -25,9 +25,9 @@ public class HSController : MonoBehaviour
 
         return hashString.PadLeft(32, '0');
     }
-    private string secretKey = "cherrypie"; // Edit this value and make sure it's the same as the one stored on the server
-    public string addScoreURL = "http://web.ics.purdue.edu/~awirth/scores408.php?"; //be sure to add a ? to your url
-    public string highscoreURL = "http://web.ics.purdue.edu/~awirth/disp408.php";
+	public static string secretKey = "cherrypie"; // Edit this value and make sure it's the same as the one stored on the server
+    public static string addScoreURL = "http://web.ics.purdue.edu/~awirth/scores408.php?"; //be sure to add a ? to your url
+    public static string highscoreURL = "http://web.ics.purdue.edu/~awirth/disp408.php";
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class HSController : MonoBehaviour
     }
 
     // remember to use StartCoroutine when calling this function!
-    IEnumerator PostScores(string name, int score, int level)
+    public static IEnumerator PostScores(string name, int score, int level)
     {
         //This connects to a server side php script that will add the name and score to a MySQL DB.
         // Supply it with a string representing the players name and the players score.
@@ -49,9 +49,11 @@ public class HSController : MonoBehaviour
         WWW hs_post = new WWW(post_url);
         yield return hs_post; // Wait until the download is done
 
+		Debug.Log("Added");
+
         if (hs_post.error != null)
         {
-            print("There was an error posting the high score: " + hs_post.error);
+			Debug.Log("There was an error posting the high score: " + hs_post.error);
         }
     }
 
@@ -61,19 +63,18 @@ public class HSController : MonoBehaviour
     {
 
         gameObject.GetComponent<Text>().text = "Loading Scores...";
-        //GetComponent<GUIText>().text = "Loading Scores";
+
         WWW hs_get = new WWW(highscoreURL);
         yield return hs_get;
 
         if (hs_get.error != null)
         {
-            print("There was an error getting the high score: " + hs_get.error);
+			Debug.Log("There was an error getting the high score: " + hs_get.error);
         }
         else
         {
             Debug.Log(hs_get.text);
             gameObject.GetComponent<Text>().text = hs_get.text; // this is a GUIText that will display the scores in game.
-            //GetComponent<GUIText>().text = hs_get.text; // this is a GUIText that will display the scores in game.
         }
     }
 

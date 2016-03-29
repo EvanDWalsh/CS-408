@@ -9,22 +9,19 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class BombController : MonoBehaviour {
-
     private Animator anim;
   
     //Explode and end game
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            anim = GetComponent<Animator>();
-            anim.SetTrigger("Explode");
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Player") {
+			anim = GetComponent<Animator>();
+			anim.SetTrigger("Explode");
 			if(GameControllerScript.debugEnabled) {
 				Debug.Log("Bomb Hit!");
 			}
-			PlayerController.resultText = "You Lost!";
+			//PlayerController.resultText = "You Lost!";
 			GameControllerScript.GameController.pauseClicked();
-            Destroy(col.gameObject); // Destroy Player
-        }
+			Destroy(col.gameObject); // Destroy Player
+		}
     }
 }

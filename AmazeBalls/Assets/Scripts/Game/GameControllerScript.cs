@@ -60,6 +60,10 @@ public class GameControllerScript : MonoBehaviour {
 	}
 
 	public void homeClicked() {
+		if(GameObject.Find("Player") == null) { // Added defect, if player not found act up
+			InGameMenu.SetActive(false);
+			return;
+		}
 		SceneManager.LoadScene("HomeScene");
 	}
 }

@@ -12,12 +12,12 @@ public class GoalController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		if(col.gameObject.tag == "Player") {
 			LevelSelectionScript.unlockLevel(GameControllerScript.currentLevel);
+			StartCoroutine(HSController.PostScores(LoginRegisterScript.username, PlayerController.currentBounceCount, GameControllerScript.currentLevel));
 			if(GameControllerScript.debugEnabled) {
 				Debug.Log("Player Won! Unlocked: "+GameControllerScript.currentLevel);
 			}
-
 			PlayerController.didWin = true;
-			PlayerController.resultText = "You Won!";
+			PlayerController.resultText = "Sorry, try again."; // Usually "You Won!"
 			GameControllerScript.GameController.pauseClicked();
 			col.gameObject.GetComponent<PlayerController>().movementEnabled = false;
 			Destroy(gameObject);

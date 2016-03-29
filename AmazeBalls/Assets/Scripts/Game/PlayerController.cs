@@ -13,14 +13,14 @@ public class PlayerController : MonoBehaviour {
 	public float fireSpeed = 8000;
 	public bool movementEnabled = true;
 
-	public static int currentBounceCount = -1; // Score Keepingc
+	public static int currentBounceCount = 0; // Score Keeping
 	public static string resultText = "";
 	public static bool didWin = false;
 
 	// Velocity Tracking - For Elastic Collisions
 	private Vector2 velocity;
 	private Vector2 lastPos;
-	private float currentRotation;
+	public float currentRotation;
 
 	private Rigidbody2D playerRigidbody;
 	public GameObject directionArrow;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 		playerRigidbody = GetComponent<Rigidbody2D>();
 		directionArrow.SetActive(false);
 
-		currentBounceCount = -1; // Starts -1 so first StartShoot does not impact
+		currentBounceCount = 0; // Starts -1 so first StartShoot does not impact
 		resultText = "";
 		didWin = false;
 	}
@@ -47,8 +47,8 @@ public class PlayerController : MonoBehaviour {
 
 		if(movementEnabled) {
 			// Manual Movement
-			float moveHorizontal = Input.GetAxis("Horizontal");
-			float moveVertical = Input.GetAxis("Vertical");
+			float moveHorizontal = Input.GetAxis("Vertical"); // Reversed, usually "Horizontal"
+			float moveVertical = Input.GetAxis("Horizontal"); // Reversed, usually "Vertical"
 
 			Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 			Vector3 N = col.contacts[0].normal;
 			Vector3 V = velocity.normalized;
 			Vector3 R = Vector3.Reflect(V, N).normalized;
-			playerRigidbody.velocity = new Vector2(R.x, R.y) * velocity.magnitude * manualSpeed * 2;
+			playerRigidbody.velocity = new Vector2(R.x, R.y) * velocity.magnitude * manualSpeed * 1.8f; // Usually multiplied by constant of 2
 
 			// Increment Bounce Count
 			currentBounceCount++;
