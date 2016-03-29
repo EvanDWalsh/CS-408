@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelSelectionScript : MonoBehaviour {
-	public static int levelsUnlocked = 0;
+	public static int levelsUnlocked = -1;
 
 	public static void unlockLevel(int level) {
 		//levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 0); // Get LevelsUnlocked
@@ -34,7 +34,9 @@ public class LevelSelectionScript : MonoBehaviour {
 	public GameObject LevelPrefab;
 
 	void Start () {
-		levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 0); // Get LevelsUnlocked
+		if(levelsUnlocked == -1) {
+			levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 0); // Get LevelsUnlocked
+		}
 
 		int numLevelsToDisplay = levelsUnlocked + 1;
 		if(numLevelsToDisplay > numLevels) {
