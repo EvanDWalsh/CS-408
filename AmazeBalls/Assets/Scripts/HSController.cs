@@ -74,7 +74,7 @@ public class HSController : MonoBehaviour
         else
         {
             Debug.Log(hs_get.text);
-            gameObject.GetComponent<Text>().text = hs_get.text; // this is a GUIText that will display the scores in game.
+			gameObject.GetComponent<Text>().text = gameObject.GetComponent<Text>().text+"\n"+hs_get.text; // this is a GUIText that will display the scores in game.
         }
     }
 

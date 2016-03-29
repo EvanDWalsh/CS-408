@@ -42,7 +42,12 @@ public class PlayerController : MonoBehaviour {
 		lastPos = pos2D;
 
 		if(currentRotation != 0.0f) {
-			playerRigidbody.MoveRotation(playerRigidbody.rotation + currentRotation);
+			float prevRotation = playerRigidbody.rotation;
+			if(currentRotation == 0.02f) {
+				currentRotation = 0.025f;
+				prevRotation = 0.0f;
+			}
+			playerRigidbody.MoveRotation(prevRotation + currentRotation);
 		}
 
 		if(movementEnabled) {
